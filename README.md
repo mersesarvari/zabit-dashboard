@@ -1,8 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Project with PostgreSQL
+
+This project is a Next.js application initialized with create-next-app, set up to use a PostgreSQL database.
+
+## Prerequisites
+
+- **Node.js:** Ensure you have Node.js 18.x installed. You can download it here:
+  `https://nodejs.org/en/download/package-manager`
+- **PostgreSQL Database:** Have a PostgreSQL database set up, and update the connection string in your environment variables.
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install Dependencies
+
+Clone this repository and navigate into your project folder. Then, install the required packages:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### 2. Configure Environment Variables
+
+Create a .env file in the root of your project with the following variables:
+
+```env
+DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE_NAME
+```
+
+Replace `USER`, `PASSWORD`, `HOST`, `PORT`, and `DATABASE_NAME` with your PostgreSQL credentials.
+
+### 3. Generate Prisma Client
+
+This project uses Prisma as an ORM. After configuring your .env file, run the following command to generate the Prisma client:
+
+```bash
+npx prisma generate
+```
+
+If you make changes to your database schema (in `prisma/schema.prisma`), run this command again to update the client.
+
+### 4. Run the Development Server
+
+Start the development server with:
 
 ```bash
 npm run dev
@@ -10,27 +52,34 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` to view your app in the browser. The page will auto-update as you make edits.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Running with Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To run this project in a Docker container:
 
-## Learn More
+Build the Docker image:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker build -t nextjs-postgres-app .
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run the container:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+docker run -p 3000:3000 --env-file .env nextjs-postgres-app
+```
 
-## Deploy on Vercel
+This setup will expose the app at `http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Database Migrations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you make changes to the database schema, use Prisma to create and apply migrations:
+
+```bash
+npx prisma migrate dev --name migration_name
+```
+
+This command will update the database with the new schema and generate a new migration file.
