@@ -84,7 +84,7 @@ export default function FunnelBreakdownPage() {
   }
 
   return (
-    <div className="container w-full mx-auto pt-6 space-y-4">
+    <div className="container w-full mx-auto pt-2 space-y-4">
       <h1 className="text-3xl font-bold">User Funnel Breakdown</h1>
       <Card>
         <CardHeader>
