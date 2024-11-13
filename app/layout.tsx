@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <div className="flex">
           <Sidebar />
-          <main className="flex-1 px-6 py-6">{children}</main>
+          <main className="flex-1 px-6">{children}</main>
         </div>
       </body>
     </html>

@@ -17,9 +17,8 @@ const Sidebar = () => {
       <nav className="flex-grow">
         <ul className="space-y-2 mt-4">
           {[
-            { href: "/dashboard", icon: Home, label: "Dashboard" },
-            { href: "/dashboard/user", icon: User, label: "Users" },
-            { href: "/dashboard/funnels", icon: BarChart, label: "Funnels" },
+            { href: "/", icon: Home, label: "Dashboard" },
+            { href: "/user", icon: User, label: "Users" },
           ].map(({ href, icon: Icon, label }) => (
             <li key={href}>
               <Link
