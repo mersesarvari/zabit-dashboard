@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id        Int              @id @default(autoincrement())
+  name      String
+  email     String           @unique
+  transitions FunnelTransition[]
+}
+
+model FunnelStage {
+  id          Int              @id @default(autoincrement())
+  stageName   String           @unique
+  transitionsFrom FunnelTransition[] @relation("FromStage")
+  transitionsTo   FunnelTransition[] @relation("ToStage")
+}
+
+model FunnelTransition {
+  id          Int              @id @default(autoincrement())
+  userId      Int
+  fromStageId Int?
+  toStageId   Int
+  transitionDate DateTime @default(now())
+
+  user        User          @relation(fields: [userId], references: [id])
+  fromStage   FunnelStage?  @relation("FromStage", fields: [fromStageId], references: [id])
+  toStage     FunnelStage   @relation("ToStage", fields: [toStageId], references: [id])
+}
