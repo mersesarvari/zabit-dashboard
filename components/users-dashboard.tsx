@@ -62,7 +62,7 @@ export function UsersDashboard() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-2xl font-bold">Users Dashboard</CardTitle>
-          <Button>
+          <Button disabled>
             <UserPlus className="mr-2 h-4 w-4" /> Add New User
           </Button>
         </div>
